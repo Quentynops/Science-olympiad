@@ -1,6 +1,6 @@
 # Browser Boy
 
-A small, self-contained Game Boy DMG emulator that runs locally in the browser. Serve this folder with any static web server and open `index.html`; choose a `.gb` or `.gbc` ROM file to play. ROM contents are read locally by the browser and are never uploaded.
+A small Game Boy DMG emulator that runs locally in the browser. Serve this folder with a static web server and open `index.html`; choose a `.gb` or `.gbc` ROM file to play. ROM contents are read locally by the browser and are never uploaded.
 
 ## Controls
 
@@ -12,8 +12,8 @@ A small, self-contained Game Boy DMG emulator that runs locally in the browser. 
 
 ## Implementation and limits
 
-The emulator includes an LR35902 CPU instruction decoder, memory map, ROM-only/MBC1/MBC2 banking basics, timer, interrupt handling, joypad input, and pixel rendering for DMG backgrounds, windows, and sprites. It is intentionally dependency-free. Audio, color Game Boy features, save-state/persistent battery RAM, and some cartridge mappers and hardware timing details are not implemented, so commercial game compatibility is not guaranteed. Use ROM files you are legally entitled to use.
+The existing `emulator.js` remains the CPU, memory, timer, and graphics core. `pokemon-compat.js` applies small cartridge-bus compatibility patches before starting that core, adding MBC3 banking/RTC (used by some Pokémon titles) and MBC5 banking. This improves compatibility with more ROMs but does not make this a fully accurate emulator; LCD timing, audio, color hardware, battery-backed save persistence, and some cartridge features remain incomplete. Game compatibility can vary. Use ROM files you are legally entitled to use.
 
 ## Run locally
 
-Open `index.html` directly in a modern browser, or start a static server in this directory (for example, `python3 -m http.server 8000`) and visit `http://localhost:8000`.
+Because the compatibility loader fetches the existing core, run the files through a local static server rather than opening `index.html` directly. For example, run `python3 -m http.server 8000` in this directory and visit `http://localhost:8000`.
