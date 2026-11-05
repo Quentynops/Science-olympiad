@@ -1,6 +1,6 @@
 # Browser Boy
 
-A small Game Boy DMG emulator that runs locally in the browser. Serve this folder with a static web server and open `index.html`; choose a `.gb` or `.gbc` ROM file to play. ROM contents are read locally by the browser and are never uploaded.
+A browser-based Game Boy emulator that uses a real Game Boy runtime loaded from a CDN instead of the earlier custom prototype. Serve this folder with a local web server and open `index.html`; choose a `.gb` or `.gbc` ROM you legally own and play it in the browser.
 
 ## Controls
 
@@ -10,10 +10,16 @@ A small Game Boy DMG emulator that runs locally in the browser. Serve this folde
 - Enter: Start
 - Shift: Select
 
-## Implementation and limits
+## Notes
 
-The existing `emulator.js` remains the CPU, memory, timer, and graphics core. `pokemon-compat.js` applies small cartridge-bus compatibility patches before starting that core, adding MBC3 banking/RTC (used by some Pokémon titles) and MBC5 banking. This improves compatibility with more ROMs but does not make this a fully accurate emulator; LCD timing, audio, color hardware, battery-backed save persistence, and some cartridge features remain incomplete. Game compatibility can vary. Use ROM files you are legally entitled to use.
+This version uses the `gbajs` CDN build, which is much more compatible with real Pokémon ROMs than the custom one-off emulator. The page remains a lightweight browser app; the ROM is read locally and never uploaded.
 
 ## Run locally
 
-Because the compatibility loader fetches the existing core, run the files through a local static server rather than opening `index.html` directly. For example, run `python3 -m http.server 8000` in this directory and visit `http://localhost:8000`.
+Run a local static server, for example:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then visit `http://localhost:8000`.
